@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Quiz Completo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .tab.active {
+            background: white;
+            color: #4facfe;
+            border-bottom: 3px solid #4facfe;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .quiz-start {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .quiz-start h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .quiz-question {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+        }
+
+        .quiz-option {
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            background: #f8f9fa;
+        }
+
+        .quiz-option:hover {
+            border-color: #4facfe;
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.selected {
+            background: #4facfe;
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background: #28a745;
+            color: white;
+        }
+
+        .quiz-option.incorrect {
+            background: #dc3545;
+            color: white;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .quiz-result {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .quiz-result .score {
+            font-size: 3em;
+            font-weight: 700;
+            color: #4facfe;
+            margin: 20px 0;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .question-item .question-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .options li {
+            padding: 8px 0;
+            font-size: 1.1em;
+        }
+
+        .options li.correct {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* css para o botão editar */
+        .btn-edit {
+            background-color: #f39c12;
+            margin-right: 5px;
+        }
+
+        .btn-edit:hover {
+            background-color: #d68910;
+        }
+        /* Barra de Pesquisa */
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+#searchInput:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.search-stats {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    display: none;
+}
+
+/* Lista de Questões com Scroll */
+#questionsList {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 10px;
+    scroll-behavior: smooth;
+}
+
+#questionsList::-webkit-scrollbar {
+    width: 8px;
+}
+
+#questionsList::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+#questionsList::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+#questionsList::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Indicadores */
+.loading-indicator, .load-more-indicator, .end-indicator {
+    text-align: center;
+    padding: 15px;
+    color: #666;
+    font-style: italic;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.loading-indicator {
+    background-color: #f8f9fa;
+}
+
+.load-more-indicator {
+    background-color: #e3f2fd;
+}
+
+.end-indicator {
+    background-color: #e8f5e8;
+}
+
+/* Destacar termos pesquisados */
+mark {
+    background-color: #ffeb3b;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* Animação para questões */
+.question-item {
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+                #questionsList {
+        max-height: 400px;
+    }
+    
+    .search-input-wrapper {
+        margin: 0 -10px;
+    }
+    
+    #searchInput {
+        font-size: 16px; /* Evita zoom no iOS */
+    }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Sistema de Quiz Completo</h1>
+            <p>Faça seus quizzes e gerencie suas questões</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="quiz">🎮 Quiz</button>
+            <button class="tab" data-tab="manage">📝 Gerenciar Questões</button>
+        </div>
+
+        <!-- Aba do Quiz -->
+        <div id="quiz-tab" class="tab-content active">
+            <div id="quiz-start" class="quiz-start">
+                <h2>🎯 Pronto para o Quiz?</h2>
+                <p>Teste seus conhecimentos com questões aleatórias!</p>
+                <div class="stats">
+                    <h3>📊 Estatísticas</h3>
+                    <p>Total de questões disponíveis: <span id="totalQuestionsQuiz">0</span></p>
+                </div>
+                <button class="btn-primary" onclick="quiz.start()">🚀 Iniciar Quiz</button>
+            </div>
+
+            <div id="quiz-game" class="hidden">
+                <div class="quiz-header">
+                    <h3>Questão <span id="currentQuestion">1</span> de <span id="totalQuestions">10</span></h3>
+                    <div>Acertos: <span id="currentScore">0</span></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="question-text" id="questionText"></div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button class="btn-secondary hidden" onclick="quiz.nextQuestion()" id="nextBtn">Próxima
+                        Questão</button>
+                    <button class="btn-danger" onclick="quiz.end()">Finalizar Quiz</button>
+                </div>
+            </div>
+
+            <div id="quiz-result" class="hidden">
+                <div class="quiz-result">
+                    <h2>🎉 Quiz Finalizado!</h2>
+                    <div class="score"><span id="finalScore">0</span> / <span id="finalTotal">0</span></div>
+                    <div id="resultMessage"></div>
+                    <button class="btn-primary" onclick="quiz.restart()">🔄 Fazer Novamente</button>
+                    <button class="btn-secondary" onclick="quiz.backToStart()">🏠 Voltar ao Início</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aba de Gerenciar Questões -->
+        <div id="manage-tab" class="tab-content">
+            <div class="stats">
+                <h3>📊 Estatísticas</h3>
+                <p>Total de questões: <span id="totalQuestionsManage">0</span></p>
+            </div>
+
+            <div class="input-section">
+                <h2>📝 Adicionar Nova Questão</h2>
+                <textarea id="questionInput"
+                    placeholder="Cole sua questão aqui seguindo o formato:&#10;&#10;Pergunta?&#10;Opção 1&#10;Opção 2&#10;Opção 3&#10;Opção 4&#10;&#10;2 (número da resposta correta)"></textarea>
+
+                <div class="buttons">
+                    <button class="btn-primary" onclick="manager.addQuestion()">➕ Adicionar Questão</button>
+                    <button class="btn-secondary" onclick="manager.clearInput()">🗑️ Limpar</button>
+                    <button class="btn-success" onclick="manager.exportQuestions()">📤 Exportar</button>
+                    <button class="btn-success" onclick="document.getElementById('importFile').click()">📥
+                        Importar</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none"
+                        onchange="manager.importQuestions(event)">
+                    <button class="btn-danger" onclick="manager.clearAllQuestions()">🗑️ Limpar Todas</button>
+                </div>
+            </div>
+
+            <div class="questions-list">
+                <h2>📋 Questões Salvas</h2>
+                <div class="search-container">
+    <div class="search-input-wrapper">
+        <input type="text" id="searchInput" placeholder="🔍 Pesquisar questões..." autocomplete="off">
+        <button id="clearSearch" class="clear-search-btn" style="display: none;">✕</button>
+    </div>
+    <div class="search-stats" id="searchStats"></div>
+</div>
+                <div id="questionsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class IndexedDBManager {
+            constructor() {
+                this.dbName = 'QuizSystemDB';
+                this.version = 1;
+                this.db = null;
+            }
+
+            async init() {
+                return new Promise((resolve, reject) => {
+                    const request = indexedDB.open(this.dbName, this.version);
+
+                    request.onerror = () => reject(request.error);
+                    request.onsuccess = () => {
+                        this.db = request.result;
+                        resolve();
+                    };
+
+                    request.onupgradeneeded = (event) => {
+                        const db = event.target.result;
+
+                        // Criar object store para questões
+                        if (!db.objectStoreNames.contains('questions')) {
+                            const questionStore = db.createObjectStore('questions', { keyPath: 'id' });
+                            questionStore.createIndex('isDefault', 'isDefault', { unique: false });
+                        }
+                    };
+                });
+            }
+
+            async saveQuestions(questions) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(['questions'], 'readwrite');
+                    const store = transaction.objectStore('questions');
+
+                    // Limpar store primeiro
+                    const clearRequest = store.clear();
+                    clearRequest.onsuccess = () => {
+                        // Adicionar todas as questões
+                        questions.forEach(question => {
+                            store.add(question);
+                        });
+                    };
+
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = () => reject(transaction.error);
+                });
+            }
+
+            async loadQuestions() {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(['questions'], 'readonly');
+                    const store = transaction.objectStore('questions');
+                    const request = store.getAll();
+
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+            }
+
+            async deleteQuestion(id) {
+                return new Promise((resolve, reject) => {
+                    const transaction = this.db.transaction(['questions'], 'readwrite');
+                    const store = transaction.objectStore('questions');
+                    const request = store.delete(id);
+
+                    request.onsuccess = () => resolve();
+                    request.onerror = () => reject(request.error);
+                });
+            }
+        }
+        // Classe principal do sistema
+        class QuizSystem {
+            constructor() {
+                this.questions = [];
+                this.dbManager = new IndexedDBManager();
+                this.editingQuestionId = null; // Adicionar para controle de edição
+                this.initializeSystem();
+            }
+
+            async initializeSystem() {
+                try {
+                    await this.dbManager.init();
+                    await this.loadQuestionsWithDefaults();
+                    this.initializeTabs();
+                } catch (error) {
+                    console.error('Erro ao inicializar sistema:', error);
+                    this.initializeTabs();
+                    this.loadDefaultQuestions(); // Fallback para perguntas padrão
+                }
+            }
+
+            async saveQuestions() {
+                try {
+                    await this.dbManager.saveQuestions(this.questions);
+                    this.updateStats();
+                    // Atualizar interface automaticamente
+                    if (window.manager) {
+                        manager.displayQuestions();
+                    }
+                } catch (error) {
+                    console.error('Erro ao salvar questões:', error);
+                    this.showNotification('Erro ao salvar questões', 'error');
+                }
+            }
+            async loadQuestionsWithDefaults() {
+                try {
+                    const savedQuestions = await this.dbManager.loadQuestions();
+
+                    // Se não há questões salvas, carregar padrões
+                    if (savedQuestions.length === 0) {
+                        this.loadDefaultQuestions();
+                        await this.saveQuestions();
+                    } else {
+                        this.questions = savedQuestions;
+                    }
+
+                    this.updateStats();
+                    // Atualizar interface automaticamente
+                    if (window.manager) {
+                        manager.displayQuestions();
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar questões:', error);
+                    this.loadDefaultQuestions();
+                }
+            }
+
+            loadDefaultQuestions() {
+                this.questions = [
+                    {
+                        id: 'default_1',
+                        text: 'Antes de ligar o carro, o que você deve fazer primeiro?',
+                        options: [
+                            'Colocar a ré',
+                            'Ajustar os retrovisores e o banco, e colocar o cinto',
+                            'Ligar o pisca-alerta',
+                            'Abaixar o freio de mão'
+                        ],
+                        correctAnswer: 2,
+                        createdAt: new Date().toISOString(),
+                        isDefault: true
+                    },
+                    {
+                        id: 'default_2',
+                        text: 'Qual é a velocidade máxima permitida em vias urbanas?',
+                        options: [
+                            '40 km/h',
+                            '50 km/h',
+                            '60 km/h',
+                            '70 km/h'
+                        ],
+                        correctAnswer: 3,
+                        createdAt: new Date().toISOString(),
+                        isDefault: true
+                    },
+                    {
+                        id: 'default_3',
+                        text: 'O que significa a placa de trânsito triangular vermelha?',
+                        options: [
+                            'Proibição',
+                            'Advertência',
+                            'Parada obrigatória',
+                            'Regulamentação'
+                        ],
+                        correctAnswer: 3,
+                        createdAt: new Date().toISOString(),
+                        isDefault: true
+                    }
+                ];
+            }
+
+            initializeTabs() {
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabName = tab.getAttribute('data-tab');
+                        this.switchTab(tabName);
+                    });
+                });
+            }
+
+            switchTab(tabName) {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+                document.getElementById(`${tabName}-tab`).classList.add('active');
+            }
+
+            updateStats() {
+                const count = this.questions.length;
+                document.getElementById('totalQuestionsManage').textContent = count;
+                document.getElementById('totalQuestionsQuiz').textContent = count;
+            }
+
+            showNotification(message, type = 'success') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => notification.classList.add('show'), 100);
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => document.body.removeChild(notification), 300);
+                }, 3000);
+            }
+
+            shuffleArray(array) {
+                const shuffled = [...array];
+                for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                }
+                return shuffled;
+            }
+
+            initializeDefaultQuestions() {
+                // Perguntas padrão que ficam sempre disponíveis
+                this.defaultQuestions = [
+                    {
+                        id: 'default_1',
+                        text: 'Antes de ligar o carro, o que você deve fazer primeiro?',
+                        options: [
+                            'Colocar a ré',
+                            'Ajustar os retrovisores e o banco, e colocar o cinto',
+                            'Ligar o pisca-alerta',
+                            'Abaixar o freio de mão'
+                        ],
+                        correctAnswer: 2,
+                        createdAt: new Date().toISOString(),
+                        isDefault: true
+                    },
+                    {
+                        id: 'default_2',
+                        text: 'Qual é a velocidade máxima permitida em vias urbanas?',
+                        options: [
+                            '40 km/h',
+                            '50 km/h',
+                            '60 km/h',
+                            '70 km/h'
+                        ],
+                        correctAnswer: 3,
+                        createdAt: new Date().toISOString(),
+                        isDefault: true
+                    },
+                    {
+                        id: 'default_3',
+                        text: 'O que significa a placa de trânsito triangular vermelha?',
+                        options: [
+                            'Proibição',
+                            'Advertência',
+                            'Parada obrigatória',
+                            'Regulamentação'
+                        ],
+                        correctAnswer: 3,
+                        createdAt: new Date().toISOString(),
+                        isDefault: true
+                    }
+                    // Adicione mais perguntas padrão aqui conforme necessário
+                ];
+            }
+        }
+
+        // Classe para gerenciar questões
+        class QuestionManager {
+            constructor(system) {
+                this.system = system;
+                    this.system = system;
+    this.itemsPerPage = 3;
+    this.currentPage = 0;
+    this.filteredQuestions = [];
+    this.searchTerm = '';
+    this.isLoading = false;
+            }
+            normalizeText(text) {
+    return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+        .replace(/[^\w\s]/g, '') // Remove pontuação
+        .trim();
+}
+
+filterQuestions() {
+    if (!this.searchTerm) {
+        this.filteredQuestions = [...this.system.questions];
+    } else {
+        const normalizedSearch = this.normalizeText(this.searchTerm);
+        this.filteredQuestions = this.system.questions.filter(question => {
+            const normalizedQuestion = this.normalizeText(question.text);
+            const normalizedOptions = question.options.map(opt => this.normalizeText(opt)).join(' ');
+            
+            return normalizedQuestion.includes(normalizedSearch) || 
+                   normalizedOptions.includes(normalizedSearch);
+        });
+    }
+    this.currentPage = 0;
+    this.displayQuestionsVirtual();
+}
+initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const clearButton = document.getElementById('clearSearch');
+    const searchStats = document.getElementById('searchStats');
+    
+    let searchTimeout;
+    
+    searchInput.addEventListener('input', (e) => {
+        const value = e.target.value;
+        
+        // Mostrar/ocultar botão X
+        clearButton.style.display = value ? 'flex' : 'none';
+        
+        // Debounce da pesquisa
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            this.searchTerm = value;
+            this.filterQuestions();
+            this.updateSearchStats();
+        }, 300);
+    });
+    
+    clearButton.addEventListener('click', () => {
+        searchInput.value = '';
+        clearButton.style.display = 'none';
+        this.searchTerm = '';
+        this.filterQuestions();
+        this.updateSearchStats();
+        searchInput.focus();
+    });
+    
+    // Enter para pesquisar imediatamente
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            clearTimeout(searchTimeout);
+            this.searchTerm = e.target.value;
+            this.filterQuestions();
+            this.updateSearchStats();
+        }
+    });
+}
+
+updateSearchStats() {
+    const searchStats = document.getElementById('searchStats');
+    const total = this.system.questions.length;
+    const filtered = this.filteredQuestions.length;
+    
+    if (this.searchTerm) {
+        searchStats.textContent = `${filtered} de ${total} questões encontradas`;
+        searchStats.style.display = 'block';
+    } else {
+        searchStats.style.display = 'none';
+    }
+}
+
+            parseQuestionText(text) {
+                const lines = text.trim().split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+                if (lines.length < 3) {
+                    throw new Error('Formato inválido. Precisa ter pelo menos a pergunta, uma opção e a resposta correta.');
+                }
+
+                const question = lines[0];
+                const lastLine = lines[lines.length - 1];
+                const options = lines.slice(1, -1);
+
+                let correctAnswer;
+                if (isNaN(lastLine)) {
+                    const letterToNumber = { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6 };
+                    correctAnswer = letterToNumber[lastLine.toLowerCase()] || 1;
+                } else {
+                    correctAnswer = parseInt(lastLine);
+                }
+
+                return {
+                    question,
+                    options,
+                    correctAnswer: Math.max(1, Math.min(correctAnswer, options.length))
+                };
+            }
+
+            async addQuestion() {
+                const input = document.getElementById('questionInput');
+                const text = input.value.trim();
+
+                if (!text) {
+                    this.system.showNotification('Por favor, insira uma questão.', 'error');
+                    return;
+                }
+
+                try {
+                    const parsed = this.parseQuestionText(text);
+
+                    if (this.system.editingQuestionId) {
+                        // Editando questão existente
+                        const questionIndex = this.system.questions.findIndex(q => q.id === this.system.editingQuestionId);
+                        if (questionIndex !== -1) {
+                            this.system.questions[questionIndex] = {
+                                ...this.system.questions[questionIndex],
+                                text: parsed.question,
+                                options: parsed.options,
+                                correctAnswer: parsed.correctAnswer
+                            };
+                            this.system.showNotification('Questão atualizada com sucesso!');
+                        }
+                        this.system.editingQuestionId = null;
+                    } else {
+                        // Adicionando nova questão
+                        const questionObj = {
+                            id: Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+                            text: parsed.question,
+                            options: parsed.options,
+                            correctAnswer: parsed.correctAnswer,
+                            createdAt: new Date().toISOString(),
+                            isDefault: false
+                        };
+                        this.system.questions.push(questionObj);
+                        this.system.showNotification('Questão adicionada com sucesso!');
+                    }
+
+                    await this.system.saveQuestions();
+                    input.value = '';
+                    this.resetAddButton();
+                    // Atualizar lista filtrada e reexibir
+this.filterQuestions();
+
+                } catch (error) {
+                    this.system.showNotification('Erro: ' + error.message, 'error');
+                }
+            }
+
+            resetAddButton() {
+                const addButton = document.querySelector('button[onclick="manager.addQuestion()"]');
+                if (addButton) {
+                    addButton.textContent = '📝 Adicionar Questão';
+                    addButton.style.backgroundColor = '';
+                }
+            }
+
+            displayQuestions() {
+    this.filteredQuestions = [...this.system.questions];
+    this.currentPage = 0;
+    this.displayQuestionsVirtual();
+    
+    // Inicializar scroll e pesquisa apenas uma vez
+    if (!this.initialized) {
+        this.initializeInfiniteScroll();
+        this.initializeSearch();
+        this.initialized = true;
+    }
+    
+    this.updateSearchStats();
+}
+
+            async deleteQuestion(id) {
+                if (!confirm('Tem certeza que deseja excluir esta questão?')) return;
+
+                this.system.questions = this.system.questions.filter(q => q.id !== id);
+                await this.system.saveQuestions();
+                // Atualizar lista filtrada e reexibir
+this.filterQuestions();
+                this.system.showNotification('Questão excluída com sucesso!');
+            }
+            editQuestion(id) {
+                const question = this.system.questions.find(q => q.id === id);
+                if (!question) return;
+
+                // Marcar que está editando
+                this.system.editingQuestionId = id;
+
+                const questionText = `${question.text}\n${question.options.join('\n')}\n${question.correctAnswer}`;
+                document.getElementById('questionInput').value = questionText;
+
+                // Mudar texto do botão para indicar edição
+                const addButton = document.querySelector('button[onclick="manager.addQuestion()"]');
+                if (addButton) {
+                    addButton.textContent = '✏️ Atualizar Questão';
+                    addButton.style.backgroundColor = '#f39c12';
+                }
+
+                this.system.showNotification('Questão carregada para edição! Clique em "Atualizar Questão" para salvar.', 'info');
+            }
+
+            async clearAllQuestions() {
+                if (!confirm('Tem certeza que deseja excluir TODAS as questões?')) return;
+
+                this.system.questions = [];
+                await this.system.saveQuestions();
+                this.system.showNotification('Todas as questões foram excluídas!');
+            }
+            cancelEdit() {
+                this.system.editingQuestionId = null;
+                document.getElementById('questionInput').value = '';
+                this.resetAddButton();
+                this.system.showNotification('Edição cancelada!', 'info');
+            }
+
+            exportQuestions() {
+                if (this.system.questions.length === 0) {
+                    this.system.showNotification('Nenhuma questão para exportar.', 'error');
+                    return;
+                }
+
+                const dataStr = JSON.stringify(this.system.questions, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+                const exportFileDefaultName = `questoes_${new Date().toISOString().split('T')[0]}.json`;
+
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+
+                this.system.showNotification('Questões exportadas com sucesso!');
+            }
+
+            importQuestions(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const importedQuestions = JSON.parse(e.target.result);
+
+                        if (!Array.isArray(importedQuestions)) {
+                            throw new Error('Formato de arquivo inválido');
+                        }
+
+                        importedQuestions.forEach(question => {
+                            this.system.questions.push({
+                                ...question,
+                                id: Date.now() + Math.random()
+                            });
+                        });
+
+                        this.system.saveQuestions();
+                        this.displayQuestions();
+                        this.system.showNotification(`${importedQuestions.length} questões importadas com sucesso!`);
+                    } catch (error) {
+                        this.system.showNotification('Erro ao importar: ' + error.message, 'error');
+                    }
+                };
+                reader.readAsText(file);
+                event.target.value = '';
+            }
+
+            clearInput() {
+                document.getElementById('questionInput').value = '';
+            }
+            displayQuestionsVirtual() {
+    const container = document.getElementById('questionsList');
+    const startIndex = this.currentPage * this.itemsPerPage;
+    const endIndex = Math.min(startIndex + this.itemsPerPage, this.filteredQuestions.length);
+    
+    // Se é a primeira página, limpar container
+    if (this.currentPage === 0) {
+        container.innerHTML = '';
+    }
+    
+    // Mostrar indicador de carregamento
+    if (this.isLoading) {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading-indicator';
+        loadingDiv.innerHTML = '⏳ Carregando mais questões...';
+        container.appendChild(loadingDiv);
+        return;
+    }
+    
+    // Adicionar questões da página atual
+    for (let i = startIndex; i < endIndex; i++) {
+        const question = this.filteredQuestions[i];
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question-item';
+        questionDiv.setAttribute('data-question-id', question.id);
+        questionDiv.innerHTML = `
+            <div class="question-text">${this.highlightSearchTerm(question.text)}</div>
+            <ul class="options">
+                ${question.options.map((option, index) => 
+                    `<li class="${index + 1 === question.correctAnswer ? 'correct' : ''}">
+                        ${String.fromCharCode(65 + index)}. ${this.highlightSearchTerm(option)}
+                        ${index + 1 === question.correctAnswer ? ' ✓' : ''}
+                    </li>`
+                ).join('')}
+            </ul>
+            <div class="question-actions">
+                <button class="btn-edit" onclick="manager.editQuestion('${question.id}')">✏️ Editar</button>
+                <button class="btn-danger" onclick="manager.deleteQuestion('${question.id}')">🗑️ Excluir</button>
+            </div>
+        `;
+        container.appendChild(questionDiv);
+    }
+    
+    // Mostrar indicador se há mais questões
+    this.updateLoadMoreIndicator();
+}
+
+highlightSearchTerm(text) {
+    if (!this.searchTerm) return text;
+    
+    const normalizedSearch = this.normalizeText(this.searchTerm);
+    const regex = new RegExp(`(${normalizedSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+updateLoadMoreIndicator() {
+    const container = document.getElementById('questionsList');
+    const hasMore = (this.currentPage + 1) * this.itemsPerPage < this.filteredQuestions.length;
+    
+    // Remover indicador anterior
+    const oldIndicator = container.querySelector('.load-more-indicator');
+    if (oldIndicator) {
+        oldIndicator.remove();
+    }
+    
+    if (hasMore) {
+        const indicator = document.createElement('div');
+        indicator.className = 'load-more-indicator';
+        indicator.innerHTML = '📄 Role para baixo para ver mais questões';
+        container.appendChild(indicator);
+    } else if (this.filteredQuestions.length > 0) {
+        const indicator = document.createElement('div');
+        indicator.className = 'end-indicator';
+        indicator.innerHTML = `✅ ${this.filteredQuestions.length} questão(ões) carregada(s)`;
+        container.appendChild(indicator);
+    }
+}
+initializeInfiniteScroll() {
+    const container = document.getElementById('questionsList');
+    let isScrolling = false;
+    
+    container.addEventListener('scroll', () => {
+        if (isScrolling) return;
+        
+        const { scrollTop, scrollHeight, clientHeight } = container;
+        
+        // Carrega mais quando está 100px do final
+        if (scrollTop + clientHeight >= scrollHeight - 100) {
+            this.loadMoreQuestions();
+        }
+    });
+}
+
+async loadMoreQuestions() {
+    const hasMore = (this.currentPage + 1) * this.itemsPerPage < this.filteredQuestions.length;
+    
+    if (!hasMore || this.isLoading) return;
+    
+    this.isLoading = true;
+    
+    // Simular delay de carregamento para UX suave
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    this.currentPage++;
+    this.isLoading = false;
+    this.displayQuestionsVirtual();
+}
+        }
+
+        // Classe para o Quiz
+        class QuizGame {
+            constructor(system) {
+                this.system = system;
+                this.quizQuestions = [];
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+                this.selectedAnswer = null;
+            }
+
+            start() {
+                if (this.system.questions.length === 0) {
+                    this.system.showNotification('Nenhuma questão disponível! Adicione questões primeiro.', 'error');
+                    return;
+                }
+
+                this.quizQuestions = this.system.shuffleArray(this.system.questions);
+                // Randomizar também as opções dentro de cada pergunta
+                this.quizQuestions = this.quizQuestions.map(question => ({
+                    ...question,
+                    options: [...question.options] // Criar cópia para não afetar o original
+                }));
+                this.currentQuestionIndex = 0;
+                this.score = 0;
+
+                document.getElementById('quiz-start').classList.add('hidden');
+                document.getElementById('quiz-game').classList.remove('hidden');
+                document.getElementById('quiz-result').classList.add('hidden');
+
+                this.updateHeader();
+                this.showQuestion();
+            }
+
+            showQuestion() {
+                const question = this.quizQuestions[this.currentQuestionIndex];
+                this.selectedAnswer = null;
+
+                document.getElementById('questionText').textContent = question.text;
+                document.getElementById('nextBtn').classList.add('hidden');
+
+                // Criar array de opções com índices originais
+                const optionsWithIndex = question.options.map((option, index) => ({
+                    text: option,
+                    originalIndex: index + 1,
+                    isCorrect: (index + 1) === question.correctAnswer
+                }));
+
+                // Randomizar as opções
+                const shuffledOptions = this.system.shuffleArray(optionsWithIndex);
+
+                const optionsContainer = document.getElementById('quizOptions');
+                optionsContainer.innerHTML = '';
+
+                shuffledOptions.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'quiz-option';
+                    optionDiv.textContent = `${String.fromCharCode(65 + index)}. ${option.text}`;
+                    optionDiv.onclick = () => this.selectAnswer(index, option.isCorrect, shuffledOptions);
+                    optionsContainer.appendChild(optionDiv);
+                });
+            }
+
+            selectAnswer(index, isCorrect, shuffledOptions) {
+                if (this.selectedAnswer !== null) return;
+
+                this.selectedAnswer = index;
+                const allOptions = document.querySelectorAll('.quiz-option');
+
+                allOptions.forEach((option, i) => {
+                    if (i === index) {
+                        option.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    } else if (shuffledOptions[i].isCorrect) {
+                        option.classList.add('correct');
+                    }
+                    option.style.pointerEvents = 'none';
+                });
+
+                if (isCorrect) {
+                    this.score++;
+                    this.updateHeader();
+                }
+
+                document.getElementById('nextBtn').classList.remove('hidden');
+            }
+
+            nextQuestion() {
+                this.currentQuestionIndex++;
+                if (this.currentQuestionIndex < this.quizQuestions.length) {
+                    this.showQuestion();
+                    this.updateHeader();
+                } else {
+                    this.showResult();
+                }
+            }
+
+            updateHeader() {
+                document.getElementById('currentQuestion').textContent = this.currentQuestionIndex + 1;
+                document.getElementById('totalQuestions').textContent = this.quizQuestions.length;
+                document.getElementById('currentScore').textContent = this.score;
+            }
+
+            showResult() {
+                document.getElementById('quiz-game').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+
+                const percentage = (this.score / this.quizQuestions.length) * 100;
+                let message = '';
+
+                if (percentage >= 90) message = '🏆 Excelente! Você domina o assunto!';
+                else if (percentage >= 70) message = '👏 Muito bem! Bom desempenho!';
+                else if (percentage >= 50) message = '👍 Razoável, mas pode melhorar!';
+                else message = '📚 Precisa estudar mais!';
+
+                document.getElementById('finalScore').textContent = this.score;
+                document.getElementById('finalTotal').textContent = this.quizQuestions.length;
+                document.getElementById('resultMessage').textContent = message;
+            }
+
+            restart() {
+                this.start();
+            }
+
+            backToStart() {
+                document.getElementById('quiz-game').classList.add('hidden');
+                document.getElementById('quiz-result').classList.add('hidden');
+                document.getElementById('quiz-start').classList.remove('hidden');
+            }
+
+            end() {
+                if (confirm('Tem certeza que deseja finalizar o quiz?')) {
+                    this.showResult();
+                }
+            }
+        }
+
+        // Inicializar o sistema
+        const system = new QuizSystem();
+        const manager = new QuestionManager(system);
+        const quiz = new QuizGame(system);
+
+        // Tornar manager global para callbacks
+        window.manager = manager;
+
+        // Aguardar inicialização antes de exibir questões
+        setTimeout(() => {
+            if (system.questions.length > 0) {
+                manager.displayQuestions();
+            }
+        }, 1000);
+    </script>
+</body>
+
+</html>
