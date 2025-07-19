@@ -70,6 +70,7 @@
         }
 
         .tab-content.active {
+            padding: 9px;
             display: block;
         }
 
@@ -299,138 +300,142 @@
         .btn-edit:hover {
             background-color: #d68910;
         }
+
         /* Barra de Pesquisa */
-.search-container {
-    margin-bottom: 20px;
-}
+        .search-container {
+            margin-bottom: 20px;
+        }
 
-.search-input-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-#searchInput {
-    width: 100%;
-    padding: 12px 45px 12px 15px;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background: white;
-}
+        #searchInput {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
 
-#searchInput:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
+        #searchInput:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
 
-.clear-search-btn {
-    position: absolute;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-}
+        .clear-search-btn {
+            position: absolute;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
 
-.clear-search-btn:hover {
-    background-color: #f0f0f0;
-    color: #333;
-}
+        .clear-search-btn:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
 
-.search-stats {
-    margin-top: 8px;
-    font-size: 14px;
-    color: #666;
-    text-align: center;
-    display: none;
-}
+        .search-stats {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            display: none;
+        }
 
-/* Lista de Questões com Scroll */
-#questionsList {
-    max-height: 600px;
-    overflow-y: auto;
-    padding-right: 10px;
-    scroll-behavior: smooth;
-}
+        /* Lista de Questões com Scroll */
+        #questionsList {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+            scroll-behavior: smooth;
+        }
 
-#questionsList::-webkit-scrollbar {
-    width: 8px;
-}
+        #questionsList::-webkit-scrollbar {
+            width: 8px;
+        }
 
-#questionsList::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
+        #questionsList::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
 
-#questionsList::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 10px;
-}
+        #questionsList::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
 
-#questionsList::-webkit-scrollbar-thumb:hover {
-    background: #a1a1a1;
-}
+        #questionsList::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
 
-/* Indicadores */
-.loading-indicator, .load-more-indicator, .end-indicator {
-    text-align: center;
-    padding: 15px;
-    color: #666;
-    font-style: italic;
-    border-radius: 8px;
-    margin: 10px 0;
-}
+        /* Indicadores */
+        .loading-indicator,
+        .load-more-indicator,
+        .end-indicator {
+            text-align: center;
+            padding: 15px;
+            color: #666;
+            font-style: italic;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
 
-.loading-indicator {
-    background-color: #f8f9fa;
-}
+        .loading-indicator {
+            background-color: #f8f9fa;
+        }
 
-.load-more-indicator {
-    background-color: #e3f2fd;
-}
+        .load-more-indicator {
+            background-color: #e3f2fd;
+        }
 
-.end-indicator {
-    background-color: #e8f5e8;
-}
+        .end-indicator {
+            background-color: #e8f5e8;
+        }
 
-/* Destacar termos pesquisados */
-mark {
-    background-color: #ffeb3b;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-weight: bold;
-}
+        /* Destacar termos pesquisados */
+        mark {
+            background-color: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
 
-/* Animação para questões */
-.question-item {
-    animation: fadeInUp 0.3s ease;
-}
+        /* Animação para questões */
+        .question-item {
+            animation: fadeInUp 0.3s ease;
+        }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         @media (max-width: 768px) {
             .container {
-                margin: 10px;
+                margin: 0px;
             }
 
             .header h1 {
@@ -448,17 +453,19 @@ mark {
             button {
                 width: 100%;
             }
-                #questionsList {
-        max-height: 400px;
-    }
-    
-    .search-input-wrapper {
-        margin: 0 -10px;
-    }
-    
-    #searchInput {
-        font-size: 16px; /* Evita zoom no iOS */
-    }
+
+            #questionsList {
+                max-height: 400px;
+            }
+
+            .search-input-wrapper {
+                margin: 0 -10px;
+            }
+
+            #searchInput {
+                font-size: 16px;
+                /* Evita zoom no iOS */
+            }
         }
     </style>
 </head>
@@ -543,12 +550,12 @@ mark {
             <div class="questions-list">
                 <h2>📋 Questões Salvas</h2>
                 <div class="search-container">
-    <div class="search-input-wrapper">
-        <input type="text" id="searchInput" placeholder="🔍 Pesquisar questões..." autocomplete="off">
-        <button id="clearSearch" class="clear-search-btn" style="display: none;">✕</button>
-    </div>
-    <div class="search-stats" id="searchStats"></div>
-</div>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="searchInput" placeholder="🔍 Pesquisar questões..." autocomplete="off">
+                        <button id="clearSearch" class="clear-search-btn" style="display: none;">✕</button>
+                    </div>
+                    <div class="search-stats" id="searchStats"></div>
+                </div>
                 <div id="questionsList"></div>
             </div>
         </div>
@@ -822,92 +829,92 @@ mark {
         class QuestionManager {
             constructor(system) {
                 this.system = system;
-                    this.system = system;
-    this.itemsPerPage = 3;
-    this.currentPage = 0;
-    this.filteredQuestions = [];
-    this.searchTerm = '';
-    this.isLoading = false;
+                this.system = system;
+                this.itemsPerPage = 3;
+                this.currentPage = 0;
+                this.filteredQuestions = [];
+                this.searchTerm = '';
+                this.isLoading = false;
             }
             normalizeText(text) {
-    return text
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '') // Remove acentos
-        .replace(/[^\w\s]/g, '') // Remove pontuação
-        .trim();
-}
+                return text
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+                    .replace(/[^\w\s]/g, '') // Remove pontuação
+                    .trim();
+            }
 
-filterQuestions() {
-    if (!this.searchTerm) {
-        this.filteredQuestions = [...this.system.questions];
-    } else {
-        const normalizedSearch = this.normalizeText(this.searchTerm);
-        this.filteredQuestions = this.system.questions.filter(question => {
-            const normalizedQuestion = this.normalizeText(question.text);
-            const normalizedOptions = question.options.map(opt => this.normalizeText(opt)).join(' ');
-            
-            return normalizedQuestion.includes(normalizedSearch) || 
-                   normalizedOptions.includes(normalizedSearch);
-        });
-    }
-    this.currentPage = 0;
-    this.displayQuestionsVirtual();
-}
-initializeSearch() {
-    const searchInput = document.getElementById('searchInput');
-    const clearButton = document.getElementById('clearSearch');
-    const searchStats = document.getElementById('searchStats');
-    
-    let searchTimeout;
-    
-    searchInput.addEventListener('input', (e) => {
-        const value = e.target.value;
-        
-        // Mostrar/ocultar botão X
-        clearButton.style.display = value ? 'flex' : 'none';
-        
-        // Debounce da pesquisa
-        clearTimeout(searchTimeout);
-        searchTimeout = setTimeout(() => {
-            this.searchTerm = value;
-            this.filterQuestions();
-            this.updateSearchStats();
-        }, 300);
-    });
-    
-    clearButton.addEventListener('click', () => {
-        searchInput.value = '';
-        clearButton.style.display = 'none';
-        this.searchTerm = '';
-        this.filterQuestions();
-        this.updateSearchStats();
-        searchInput.focus();
-    });
-    
-    // Enter para pesquisar imediatamente
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            clearTimeout(searchTimeout);
-            this.searchTerm = e.target.value;
-            this.filterQuestions();
-            this.updateSearchStats();
-        }
-    });
-}
+            filterQuestions() {
+                if (!this.searchTerm) {
+                    this.filteredQuestions = [...this.system.questions];
+                } else {
+                    const normalizedSearch = this.normalizeText(this.searchTerm);
+                    this.filteredQuestions = this.system.questions.filter(question => {
+                        const normalizedQuestion = this.normalizeText(question.text);
+                        const normalizedOptions = question.options.map(opt => this.normalizeText(opt)).join(' ');
 
-updateSearchStats() {
-    const searchStats = document.getElementById('searchStats');
-    const total = this.system.questions.length;
-    const filtered = this.filteredQuestions.length;
-    
-    if (this.searchTerm) {
-        searchStats.textContent = `${filtered} de ${total} questões encontradas`;
-        searchStats.style.display = 'block';
-    } else {
-        searchStats.style.display = 'none';
-    }
-}
+                        return normalizedQuestion.includes(normalizedSearch) ||
+                            normalizedOptions.includes(normalizedSearch);
+                    });
+                }
+                this.currentPage = 0;
+                this.displayQuestionsVirtual();
+            }
+            initializeSearch() {
+                const searchInput = document.getElementById('searchInput');
+                const clearButton = document.getElementById('clearSearch');
+                const searchStats = document.getElementById('searchStats');
+
+                let searchTimeout;
+
+                searchInput.addEventListener('input', (e) => {
+                    const value = e.target.value;
+
+                    // Mostrar/ocultar botão X
+                    clearButton.style.display = value ? 'flex' : 'none';
+
+                    // Debounce da pesquisa
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        this.searchTerm = value;
+                        this.filterQuestions();
+                        this.updateSearchStats();
+                    }, 300);
+                });
+
+                clearButton.addEventListener('click', () => {
+                    searchInput.value = '';
+                    clearButton.style.display = 'none';
+                    this.searchTerm = '';
+                    this.filterQuestions();
+                    this.updateSearchStats();
+                    searchInput.focus();
+                });
+
+                // Enter para pesquisar imediatamente
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        clearTimeout(searchTimeout);
+                        this.searchTerm = e.target.value;
+                        this.filterQuestions();
+                        this.updateSearchStats();
+                    }
+                });
+            }
+
+            updateSearchStats() {
+                const searchStats = document.getElementById('searchStats');
+                const total = this.system.questions.length;
+                const filtered = this.filteredQuestions.length;
+
+                if (this.searchTerm) {
+                    searchStats.textContent = `${filtered} de ${total} questões encontradas`;
+                    searchStats.style.display = 'block';
+                } else {
+                    searchStats.style.display = 'none';
+                }
+            }
 
             parseQuestionText(text) {
                 const lines = text.trim().split('\n').map(line => line.trim()).filter(line => line.length > 0);
@@ -978,7 +985,7 @@ updateSearchStats() {
                     input.value = '';
                     this.resetAddButton();
                     // Atualizar lista filtrada e reexibir
-this.filterQuestions();
+                    this.filterQuestions();
 
                 } catch (error) {
                     this.system.showNotification('Erro: ' + error.message, 'error');
@@ -994,19 +1001,19 @@ this.filterQuestions();
             }
 
             displayQuestions() {
-    this.filteredQuestions = [...this.system.questions];
-    this.currentPage = 0;
-    this.displayQuestionsVirtual();
-    
-    // Inicializar scroll e pesquisa apenas uma vez
-    if (!this.initialized) {
-        this.initializeInfiniteScroll();
-        this.initializeSearch();
-        this.initialized = true;
-    }
-    
-    this.updateSearchStats();
-}
+                this.filteredQuestions = [...this.system.questions];
+                this.currentPage = 0;
+                this.displayQuestionsVirtual();
+
+                // Inicializar scroll e pesquisa apenas uma vez
+                if (!this.initialized) {
+                    this.initializeInfiniteScroll();
+                    this.initializeSearch();
+                    this.initialized = true;
+                }
+
+                this.updateSearchStats();
+            }
 
             async deleteQuestion(id) {
                 if (!confirm('Tem certeza que deseja excluir esta questão?')) return;
@@ -1014,7 +1021,7 @@ this.filterQuestions();
                 this.system.questions = this.system.questions.filter(q => q.id !== id);
                 await this.system.saveQuestions();
                 // Atualizar lista filtrada e reexibir
-this.filterQuestions();
+                this.filterQuestions();
                 this.system.showNotification('Questão excluída com sucesso!');
             }
             editQuestion(id) {
@@ -1105,113 +1112,113 @@ this.filterQuestions();
                 document.getElementById('questionInput').value = '';
             }
             displayQuestionsVirtual() {
-    const container = document.getElementById('questionsList');
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = Math.min(startIndex + this.itemsPerPage, this.filteredQuestions.length);
-    
-    // Se é a primeira página, limpar container
-    if (this.currentPage === 0) {
-        container.innerHTML = '';
-    }
-    
-    // Mostrar indicador de carregamento
-    if (this.isLoading) {
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'loading-indicator';
-        loadingDiv.innerHTML = '⏳ Carregando mais questões...';
-        container.appendChild(loadingDiv);
-        return;
-    }
-    
-    // Adicionar questões da página atual
-    for (let i = startIndex; i < endIndex; i++) {
-        const question = this.filteredQuestions[i];
-        const questionDiv = document.createElement('div');
-        questionDiv.className = 'question-item';
-        questionDiv.setAttribute('data-question-id', question.id);
-        questionDiv.innerHTML = `
+                const container = document.getElementById('questionsList');
+                const startIndex = this.currentPage * this.itemsPerPage;
+                const endIndex = Math.min(startIndex + this.itemsPerPage, this.filteredQuestions.length);
+
+                // Se é a primeira página, limpar container
+                if (this.currentPage === 0) {
+                    container.innerHTML = '';
+                }
+
+                // Mostrar indicador de carregamento
+                if (this.isLoading) {
+                    const loadingDiv = document.createElement('div');
+                    loadingDiv.className = 'loading-indicator';
+                    loadingDiv.innerHTML = '⏳ Carregando mais questões...';
+                    container.appendChild(loadingDiv);
+                    return;
+                }
+
+                // Adicionar questões da página atual
+                for (let i = startIndex; i < endIndex; i++) {
+                    const question = this.filteredQuestions[i];
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'question-item';
+                    questionDiv.setAttribute('data-question-id', question.id);
+                    questionDiv.innerHTML = `
             <div class="question-text">${this.highlightSearchTerm(question.text)}</div>
             <ul class="options">
-                ${question.options.map((option, index) => 
-                    `<li class="${index + 1 === question.correctAnswer ? 'correct' : ''}">
+                ${question.options.map((option, index) =>
+                        `<li class="${index + 1 === question.correctAnswer ? 'correct' : ''}">
                         ${String.fromCharCode(65 + index)}. ${this.highlightSearchTerm(option)}
                         ${index + 1 === question.correctAnswer ? ' ✓' : ''}
                     </li>`
-                ).join('')}
+                    ).join('')}
             </ul>
             <div class="question-actions">
                 <button class="btn-edit" onclick="manager.editQuestion('${question.id}')">✏️ Editar</button>
                 <button class="btn-danger" onclick="manager.deleteQuestion('${question.id}')">🗑️ Excluir</button>
             </div>
         `;
-        container.appendChild(questionDiv);
-    }
-    
-    // Mostrar indicador se há mais questões
-    this.updateLoadMoreIndicator();
-}
+                    container.appendChild(questionDiv);
+                }
 
-highlightSearchTerm(text) {
-    if (!this.searchTerm) return text;
-    
-    const normalizedSearch = this.normalizeText(this.searchTerm);
-    const regex = new RegExp(`(${normalizedSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    
-    return text.replace(regex, '<mark>$1</mark>');
-}
+                // Mostrar indicador se há mais questões
+                this.updateLoadMoreIndicator();
+            }
 
-updateLoadMoreIndicator() {
-    const container = document.getElementById('questionsList');
-    const hasMore = (this.currentPage + 1) * this.itemsPerPage < this.filteredQuestions.length;
-    
-    // Remover indicador anterior
-    const oldIndicator = container.querySelector('.load-more-indicator');
-    if (oldIndicator) {
-        oldIndicator.remove();
-    }
-    
-    if (hasMore) {
-        const indicator = document.createElement('div');
-        indicator.className = 'load-more-indicator';
-        indicator.innerHTML = '📄 Role para baixo para ver mais questões';
-        container.appendChild(indicator);
-    } else if (this.filteredQuestions.length > 0) {
-        const indicator = document.createElement('div');
-        indicator.className = 'end-indicator';
-        indicator.innerHTML = `✅ ${this.filteredQuestions.length} questão(ões) carregada(s)`;
-        container.appendChild(indicator);
-    }
-}
-initializeInfiniteScroll() {
-    const container = document.getElementById('questionsList');
-    let isScrolling = false;
-    
-    container.addEventListener('scroll', () => {
-        if (isScrolling) return;
-        
-        const { scrollTop, scrollHeight, clientHeight } = container;
-        
-        // Carrega mais quando está 100px do final
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            this.loadMoreQuestions();
-        }
-    });
-}
+            highlightSearchTerm(text) {
+                if (!this.searchTerm) return text;
 
-async loadMoreQuestions() {
-    const hasMore = (this.currentPage + 1) * this.itemsPerPage < this.filteredQuestions.length;
-    
-    if (!hasMore || this.isLoading) return;
-    
-    this.isLoading = true;
-    
-    // Simular delay de carregamento para UX suave
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    this.currentPage++;
-    this.isLoading = false;
-    this.displayQuestionsVirtual();
-}
+                const normalizedSearch = this.normalizeText(this.searchTerm);
+                const regex = new RegExp(`(${normalizedSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+
+                return text.replace(regex, '<mark>$1</mark>');
+            }
+
+            updateLoadMoreIndicator() {
+                const container = document.getElementById('questionsList');
+                const hasMore = (this.currentPage + 1) * this.itemsPerPage < this.filteredQuestions.length;
+
+                // Remover indicador anterior
+                const oldIndicator = container.querySelector('.load-more-indicator');
+                if (oldIndicator) {
+                    oldIndicator.remove();
+                }
+
+                if (hasMore) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'load-more-indicator';
+                    indicator.innerHTML = '📄 Role para baixo para ver mais questões';
+                    container.appendChild(indicator);
+                } else if (this.filteredQuestions.length > 0) {
+                    const indicator = document.createElement('div');
+                    indicator.className = 'end-indicator';
+                    indicator.innerHTML = `✅ ${this.filteredQuestions.length} questão(ões) carregada(s)`;
+                    container.appendChild(indicator);
+                }
+            }
+            initializeInfiniteScroll() {
+                const container = document.getElementById('questionsList');
+                let isScrolling = false;
+
+                container.addEventListener('scroll', () => {
+                    if (isScrolling) return;
+
+                    const { scrollTop, scrollHeight, clientHeight } = container;
+
+                    // Carrega mais quando está 100px do final
+                    if (scrollTop + clientHeight >= scrollHeight - 100) {
+                        this.loadMoreQuestions();
+                    }
+                });
+            }
+
+            async loadMoreQuestions() {
+                const hasMore = (this.currentPage + 1) * this.itemsPerPage < this.filteredQuestions.length;
+
+                if (!hasMore || this.isLoading) return;
+
+                this.isLoading = true;
+
+                // Simular delay de carregamento para UX suave
+                await new Promise(resolve => setTimeout(resolve, 300));
+
+                this.currentPage++;
+                this.isLoading = false;
+                this.displayQuestionsVirtual();
+            }
         }
 
         // Classe para o Quiz
