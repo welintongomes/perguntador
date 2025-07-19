@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Quiz Completo</title>
+    <title>MultiplEscolha</title>
     <style>
         * {
             margin: 0;
@@ -16,7 +16,11 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 11px;
+        }
+
+        h2 {
+            text-align: center;
         }
 
         .container {
@@ -199,6 +203,9 @@
         }
 
         button {
+            color: wheat;
+            text-shadow: 1.1px 0px 0px black;
+            box-shadow: 0 8px 6px rgba(0, 0, 0, 0.2);
             padding: 12px 24px;
             border: none;
             border-radius: 25px;
@@ -466,6 +473,22 @@
                 font-size: 16px;
                 /* Evita zoom no iOS */
             }
+
+            .question-actions {
+                display: flex;
+                gap: 5px;
+            }
+
+            .alinhar3 {
+                display: flex;
+            }
+
+            .btn3 {
+                text-shadow: 0px 2px 4px black;
+                font-size: 15px;
+                margin: 0px 8px 0px 8px;
+                padding: 1px;
+            }
         }
     </style>
 </head>
@@ -473,8 +496,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 Sistema de Quiz Completo</h1>
-            <p>Faça seus quizzes e gerencie suas questões</p>
+            <h1>🎯 MultiplEscolha</h1>
+            <!-- <p>Faça seus quizzes e gerencie suas questões</p> -->
         </div>
 
         <div class="tabs">
@@ -537,10 +560,12 @@
 
                 <div class="buttons">
                     <button class="btn-primary" onclick="manager.addQuestion()">➕ Adicionar Questão</button>
-                    <button class="btn-secondary" onclick="manager.clearInput()">🗑️ Limpar</button>
-                    <button class="btn-success" onclick="manager.exportQuestions()">📤 Exportar</button>
-                    <button class="btn-success" onclick="document.getElementById('importFile').click()">📥
-                        Importar</button>
+                    <div class="alinhar3">
+                        <button class="btn-secondary btn3" onclick="manager.clearInput()">🗑️ Limpar</button>
+                        <button class="btn-success btn3" onclick="manager.exportQuestions()">📤 Exportar</button>
+                        <button class="btn-success btn3" onclick="document.getElementById('importFile').click()">📥
+                            Importar</button>
+                    </div>
                     <input type="file" id="importFile" accept=".json" style="display: none"
                         onchange="manager.importQuestions(event)">
                     <button class="btn-danger" onclick="manager.clearAllQuestions()">🗑️ Limpar Todas</button>
